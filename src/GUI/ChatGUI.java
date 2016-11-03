@@ -1,6 +1,7 @@
 package GUI;
 
 import communicator.UDPChatCommunicator;
+import logger.AbstractLoggerStrategy;
 import logger.SystemOutLoggerStrategy;
 
 import java.awt.BorderLayout;
@@ -40,7 +41,7 @@ public class ChatGUI extends JFrame implements Observer {
 	public ChatGUI(String userName) {
 		this.setTitle("Simple Chat - " + userName);
 		_user = userName;
-        SystemOutLoggerStrategy log = new SystemOutLoggerStrategy();
+        AbstractLoggerStrategy log = new SystemOutLoggerStrategy();
 		_communicator = new UDPChatCommunicator();
 		_communicator.addObserver(this);
 		_communicator.addObserver(log);
