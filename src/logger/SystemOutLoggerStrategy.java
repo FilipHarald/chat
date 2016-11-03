@@ -10,7 +10,7 @@ import java.util.Calendar;
  *
  * @author Filip Harald
  */
-public class SystemOutLoggerStrategy implements LoggerStrategy {
+public class SystemOutLoggerStrategy extends AbstractLoggerStrategy {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     /**

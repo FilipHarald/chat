@@ -78,9 +78,7 @@ public class UDPChatCommunicator extends Observable implements Runnable {
 				message = message.substring(0, datagram.getLength());
 				setChanged();
 				notifyObservers(message);
-				log(message);
 				datagram.setLength(b.length);
-				throw new IOException();
 			}
 		}
 	}
@@ -99,22 +97,7 @@ public class UDPChatCommunicator extends Observable implements Runnable {
 	 * @param e
 	 */
 	private void error(IOException e) {
-		log(e);
 		setChanged();
 		notifyObservers(e);
-	}
-	/**
-	 * Used to log messages
-	 *
-	 * @param message
-	 */
-	private void log(Object message) {
-		if (_log != null) {
-			if (message instanceof String) {
-				_log.log((String)message);
-			} else {
-				_log.log((Exception)message);
-			}
-		}
 	}
 }

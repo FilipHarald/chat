@@ -40,8 +40,10 @@ public class ChatGUI extends JFrame implements Observer {
 	public ChatGUI(String userName) {
 		this.setTitle("Simple Chat - " + userName);
 		_user = userName;
-		_communicator = new UDPChatCommunicator(new SystemOutLoggerStrategy());
+        SystemOutLoggerStrategy log = new SystemOutLoggerStrategy();
+		_communicator = new UDPChatCommunicator(log);
 		_communicator.addObserver(this);
+		_communicator.addObserver(log);
 		this.initializeGUI();
 		this.addGUIListeners();		
 		_communicator.startListen();
