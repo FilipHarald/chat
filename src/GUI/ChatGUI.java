@@ -96,6 +96,15 @@ public class ChatGUI extends JFrame implements Observer {
 		_messageArea.grabFocus();
 	}
 
+    /**
+     * Receives message from all users
+     *
+     * @param message The received message
+     */
+    public void receiveMessage(String message) {
+        _chatArea.append(message + "\n");
+    }
+
 	/**
 	 * Informs the user that an error has occurred and exits the application
 	 */
@@ -114,7 +123,7 @@ public class ChatGUI extends JFrame implements Observer {
         if (arg instanceof Exception) {
 			error();
 		} else {
-			_chatArea.append(arg + "\n");
+			receiveMessage((String)arg);
 		}
 	}
 }
