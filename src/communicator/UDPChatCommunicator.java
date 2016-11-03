@@ -17,15 +17,12 @@ public class UDPChatCommunicator extends Observable implements Runnable {
 	private final int DATAGRAM_LENGTH = 100;
 	private final int PORT = 6789;
 	private final String MULTICAST_ADDRESS = "228.28.28.28";
-	private LoggerStrategy _log = null;
 
 	/**
 	 * Creates a ChatCommunicator
 	 *
-	 * @param loggerStrategy the desired logger strategy
 	 */
-	public UDPChatCommunicator(LoggerStrategy loggerStrategy) {
-		_log = loggerStrategy;
+	public UDPChatCommunicator() {
 		/* force java to use IPv4 so we do not get 
 		 * a problem when using IPv4 multicast address */		
 		System.setProperty("java.net.preferIPv4Stack" , "true");

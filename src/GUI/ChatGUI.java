@@ -41,7 +41,7 @@ public class ChatGUI extends JFrame implements Observer {
 		this.setTitle("Simple Chat - " + userName);
 		_user = userName;
         SystemOutLoggerStrategy log = new SystemOutLoggerStrategy();
-		_communicator = new UDPChatCommunicator(log);
+		_communicator = new UDPChatCommunicator();
 		_communicator.addObserver(this);
 		_communicator.addObserver(log);
 		this.initializeGUI();
