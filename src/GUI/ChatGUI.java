@@ -1,3 +1,8 @@
+package GUI;
+
+import communicator.UDPChatCommunicator;
+import logger.SystemOutLoggerStrategy;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -5,7 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,9 +22,9 @@ import javax.swing.JTextArea;
 /**
  * The main GUI for a simple chat application. 
  * 
- * @author Thomas Ejnefj�ll
+ * @author Filip Harald
  */
-public class ChatGUI extends JFrame {
+public class ChatGUI extends JFrame implements Observer {
 
 	private static final long serialVersionUID = -6901406569465760897L;
 	private JTextArea _chatArea, _messageArea;
@@ -34,7 +40,8 @@ public class ChatGUI extends JFrame {
 	public ChatGUI(String userName) {
 		this.setTitle("Simple Chat - " + userName);
 		_user = userName;
-		_communicator = new UDPChatCommunicator(this, new SystemOutLoggerStrategy());
+		_communicator = new UDPChatCommunicator(new SystemOutLoggerStrategy());
+		_communicator.addObserver(this);
 		this.initializeGUI();
 		this.addGUIListeners();		
 		_communicator.startListen();
@@ -84,30 +91,28 @@ public class ChatGUI extends JFrame {
 	 * Send current message to all users
 	 */
 	private void sendMessage() {
-		try {
-			_communicator.sendChat(_user, _messageArea.getText());
-			_messageArea.setText("");
-			_messageArea.grabFocus();			
-		} catch (IOException e) {			
-			this.error();
-		}
+		_communicator.sendChat(_user, _messageArea.getText());
+		_messageArea.setText("");
+		_messageArea.grabFocus();
 	}
-	/**
-	 * Receives message from all users 
-	 * 
-	 * @param message The received message
-	 */
-	public void receiveMessage(String message) {
-		_chatArea.append(message + "\n");
-	}
+
 	/**
 	 * Informs the user that an error has occurred and exits the application
 	 */
-	public void error() {		
+	private void error() {
 		JOptionPane.showMessageDialog(this, "An error has occured and the application will close", "Error", JOptionPane.WARNING_MESSAGE);
 
 		this.setVisible(false);
 		this.dispose();
-		System.exit(ERROR);		
+		System.exit(ERROR);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+        if (arg instanceof Exception) {
+			error();
+		} else {
+			_chatArea.append(arg + "\n");
+		}
 	}
 }

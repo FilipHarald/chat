@@ -1,3 +1,5 @@
+package logger;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,8 +17,16 @@ public class SystemOutLoggerStrategy implements LoggerStrategy {
      * {@inheritDoc}
      */
     @Override
-    public void logMessage(String message) {
+    public void log(String message) {
         Calendar cal = Calendar.getInstance();
         System.out.println("[" + DATE_FORMAT.format(cal.getTime()) + "] " + message);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void log(Exception e) {
+        log("[ERROR] " + e);
     }
 }

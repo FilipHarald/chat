@@ -1,3 +1,5 @@
+import GUI.ChatGUI;
+
 import javax.swing.JOptionPane;
 
 /**

@@ -1,3 +1,5 @@
+package logger;
+
 /**
  * A strategy for a logger
  *
@@ -11,5 +13,11 @@ public interface LoggerStrategy {
      *
      * @param message
      */
-    void logMessage(String message);
+    void log(String message);
+
+    /**
+     * Logs the specified error
+     * @param e
+     */
+    void log(Exception e);
 }
