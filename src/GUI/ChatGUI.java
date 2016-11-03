@@ -106,7 +106,9 @@ public class ChatGUI extends JFrame implements Observer {
 		this.dispose();
 		System.exit(ERROR);
 	}
-
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void update(Observable o, Object arg) {
         if (arg instanceof Exception) {

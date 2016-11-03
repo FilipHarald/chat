@@ -4,7 +4,6 @@ import logger.LoggerStrategy;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.Objects;
 import java.util.Observable;
 
 /**
@@ -94,12 +93,21 @@ public class UDPChatCommunicator extends Observable implements Runnable {
 		}
 	}
 
+	/**
+	 * Called whenever an exception caught in this instance
+	 *
+	 * @param e
+	 */
 	private void error(IOException e) {
 		log(e);
 		setChanged();
 		notifyObservers(e);
 	}
-
+	/**
+	 * Used to log messages
+	 *
+	 * @param message
+	 */
 	private void log(Object message) {
 		if (_log != null) {
 			if (message instanceof String) {
