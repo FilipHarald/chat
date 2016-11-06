@@ -41,11 +41,13 @@ public class StreamLoggerStrategy extends AbstractLoggerStrategy {
      * @param logEntry
      */
     private void writeToStream(OutputStream outputStream, String logEntry) {
-        logEntry += "\n";
-        try {
-            outputStream.write(logEntry.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (outputStream != null) {
+            logEntry += "\n";
+            try {
+                outputStream.write(logEntry.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
