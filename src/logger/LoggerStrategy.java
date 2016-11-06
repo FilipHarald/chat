@@ -17,7 +17,7 @@ public interface LoggerStrategy {
 
     /**
      * Logs the specified error
-     * @param e
+     * @param error
      */
-    void log(Exception e);
+    void logError(String error);
 }

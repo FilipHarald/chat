@@ -1,7 +1,5 @@
 package communicator;
 
-import logger.LoggerStrategy;
-
 import java.io.IOException;
 import java.net.*;
 import java.util.Observable;

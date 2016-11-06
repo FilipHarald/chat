@@ -1,5 +1,8 @@
 package logger;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -7,13 +10,16 @@ import java.util.Observer;
  * Created by Filip on 2016-11-03.
  */
 public abstract class AbstractLoggerStrategy implements LoggerStrategy, Observer {
+    protected static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     @Override
     public void update(Observable o, Object arg) {
+        Calendar cal = Calendar.getInstance();
+        String prefix = "[" + DATE_FORMAT.format(cal.getTime()) + "] ";
         if (arg instanceof String) {
-            log((String)arg);
+            log(prefix + arg);
         } else {
-            log((Exception)arg);
+            logError(prefix + "[ERROR] " + arg);
         }
     }
 
@@ -21,5 +27,5 @@ public abstract class AbstractLoggerStrategy implements LoggerStrategy, Observer
     public abstract void log(String message);
 
     @Override
-    public abstract void log(Exception e);
+    public abstract void logError(String error);
 }
